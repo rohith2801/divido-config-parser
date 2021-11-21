@@ -1,6 +1,8 @@
+const fs = require("fs");
+
 const merger = (...jsons) => {
     let output = {};
-    jsons.forEach((json) => (output = Object.assign(output, JSON.parse(json))));
+    jsons.forEach((json) => (output = Object.assign(output, json)));
 
     return output;
 };
@@ -15,12 +17,30 @@ const parser = (json, key) => {
     return response;
 };
 
-const prod =
-    '{"environment":"production","database":{"host":"mysql","port":3306,"username":"divido","password":"divido"},"cache":{"redis":{"host":"redis","port":6379}}}';
-const dev =
-    '{"environment":"dev","database":{"host":"devmysql","port":3306,"username":"divido","password":"divido"},"cache":{"redis":{"host":"redis","port":6379}}}';
+const main = () => {
+    const paths = [
+        "json/config.json",
+        "jsons/config.local.json",
+        "jsons/config.invalid.json",
+    ];
 
-const key = "database.host";
+    const jsons = [];
+    try {
+        paths.forEach((path) => {
+            jsons.push(JSON.parse(fs.readFileSync(path)));
+        });
+    } catch (e) {
+        throw "Invalid path/json passed";
+    }
 
-const response = parser(merger(prod, dev), key);
-console.warn(response);
+    if (jsons.length === 0) {
+        throw "No config found";
+    }
+
+    const key = "database.host";
+
+    const response = parser(merger(...jsons), key);
+    console.warn(response);
+};
+
+main();
