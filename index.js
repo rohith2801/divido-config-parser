@@ -1,28 +1,20 @@
 const fs = require("fs");
 const constants = require("./constants");
+const Json = require("./Json");
 
 const merger = (fileType, ...fileData) => {
     switch (fileType) {
         case constants.FILE_TYPE_JSON:
-            let output = {};
-            fileData.forEach(
-                (json) => (output = Object.assign(output, JSON.parse(json)))
-            );
-
-            return output;
+            const jsonObj = new Json();
+            return jsonObj.merger(...fileData);
     }
 };
 
 const parser = (fileType, data, key) => {
     switch (fileType) {
         case constants.FILE_TYPE_JSON:
-            const keyArray = key.split(".");
-            let response = data;
-            keyArray.forEach((keyElement) => {
-                response = response[keyElement];
-            });
-
-            return response;
+            const jsonObj = new Json();
+            return jsonObj.parse(data, key);
     }
 };
 
