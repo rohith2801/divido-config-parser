@@ -18,13 +18,7 @@ const parser = (fileType, data, key) => {
     }
 };
 
-const main = () => {
-    const paths = [
-        "jsons/config.json",
-        "jsons/config.local.json",
-        "jsons/config.stage.json",
-    ];
-
+const main = (fileType, paths, key) => {
     const fileData = [];
     try {
         paths.forEach((path) => {
@@ -38,13 +32,24 @@ const main = () => {
         throw "No config found";
     }
 
-    const key = "database.stage";
-    const fileType = constants.FILE_TYPE_JSON;
-
     const mergedData = merger(fileType, ...fileData);
     const response = parser(fileType, mergedData, key);
 
-    console.warn(response);
+    if (!response) {
+        console.warn(`No data found for key: ${key}`);
+        return;
+    }
+
+    console.log(response);
 };
 
-main();
+const paths = [
+    "jsons/config.json",
+    "jsons/config.local.json",
+    "jsons/config.stage.json",
+];
+
+const key = "cache";
+const fileType = constants.FILE_TYPE_JSON;
+
+main(fileType, paths, key);

@@ -9,7 +9,7 @@
     },
     "cache": {
       "redis": {
-        "host": "127.0.0.1",
+        "host": "stagehost",
         "port": 6379
       }
     }
