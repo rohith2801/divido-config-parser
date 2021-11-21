@@ -4,6 +4,7 @@
   "description": "This program is written in node js.  Input:  1. paths as an array 2. key 3. file type (json, xml etc) - To extend the implementation for future use",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "mocha 'tests/**.*.js' --recursive --exit"
   },
   "repository": {
