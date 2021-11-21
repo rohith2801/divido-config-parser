@@ -1,0 +1,22 @@
+{
+  "name": "divido-config-parser",
+  "version": "1.0.0",
+  "description": "This program is written in node js.  Input:  1. paths as an array 2. key 3. file type (json, xml etc) - To extend the implementation for future use",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha 'tests/**.*.js' --recursive --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohith2801/divido-config-parser.git"
+  },
+  "author": "Rohith Kumar Ksheerasagar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rohith2801/divido-config-parser/issues"
+  },
+  "homepage": "https://github.com/rohith2801/divido-config-parser#readme",
+  "devDependencies": {
+    "mocha": "^9.1.3"
+  }
+}

@@ -40,7 +40,7 @@ const main = (fileType, paths, key) => {
         return;
     }
 
-    console.log(response);
+    return response;
 };
 
 const paths = [
@@ -52,4 +52,7 @@ const paths = [
 const key = "cache";
 const fileType = constants.FILE_TYPE_JSON;
 
-main(fileType, paths, key);
+const response = main(fileType, paths, key);
+console.log(response);
+
+exports.main = main;
