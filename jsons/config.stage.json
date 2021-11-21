@@ -5,7 +5,7 @@
       "port": 3306,
       "username": "divido",
       "password": "divido",
-      "local": "true"
+      "stage": "true"
     },
     "cache": {
       "redis": {

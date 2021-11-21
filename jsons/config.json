@@ -4,7 +4,8 @@
       "host": "mysql",
       "port": 3306,
       "username": "divido",
-      "password": "divido"
+      "password": "divido",
+      "prod": "true"
     },
     "cache": {
       "redis": {

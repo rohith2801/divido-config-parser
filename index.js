@@ -22,7 +22,7 @@ const main = () => {
     const paths = [
         "jsons/config.json",
         "jsons/config.local.json",
-        // "jsons/config.invalid.json",
+        "jsons/config.stage.json",
     ];
 
     const fileData = [];
@@ -38,10 +38,12 @@ const main = () => {
         throw "No config found";
     }
 
-    const key = "database.host";
+    const key = "database.stage";
     const fileType = constants.FILE_TYPE_JSON;
 
-    const response = parser(fileType, merger(fileType, ...fileData), key);
+    const mergedData = merger(fileType, ...fileData);
+    const response = parser(fileType, mergedData, key);
+
     console.warn(response);
 };
 
