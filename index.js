@@ -1,4 +1,4 @@
-const concat = (...jsons) => {
+const merger = (...jsons) => {
     let output = {};
     jsons.forEach((json) => (output = Object.assign(output, JSON.parse(json))));
 
@@ -22,5 +22,5 @@ const dev =
 
 const key = "database.host";
 
-const response = parser(concat(prod, dev), key);
+const response = parser(merger(prod, dev), key);
 console.warn(response);
