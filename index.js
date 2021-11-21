@@ -1,45 +1,55 @@
 const fs = require("fs");
+const constants = require("./constants");
 
-const merger = (...jsons) => {
-    let output = {};
-    jsons.forEach((json) => (output = Object.assign(output, json)));
+const merger = (fileType, ...fileData) => {
+    switch (fileType) {
+        case constants.FILE_TYPE_JSON:
+            let output = {};
+            fileData.forEach(
+                (json) => (output = Object.assign(output, JSON.parse(json)))
+            );
 
-    return output;
+            return output;
+    }
 };
 
-const parser = (json, key) => {
-    const keyArray = key.split(".");
-    let response = json;
-    keyArray.forEach((keyElement) => {
-        response = response[keyElement];
-    });
+const parser = (fileType, data, key) => {
+    switch (fileType) {
+        case constants.FILE_TYPE_JSON:
+            const keyArray = key.split(".");
+            let response = data;
+            keyArray.forEach((keyElement) => {
+                response = response[keyElement];
+            });
 
-    return response;
+            return response;
+    }
 };
 
 const main = () => {
     const paths = [
-        "json/config.json",
+        "jsons/config.json",
         "jsons/config.local.json",
-        "jsons/config.invalid.json",
+        // "jsons/config.invalid.json",
     ];
 
-    const jsons = [];
+    const fileData = [];
     try {
         paths.forEach((path) => {
-            jsons.push(JSON.parse(fs.readFileSync(path)));
+            fileData.push(fs.readFileSync(path));
         });
     } catch (e) {
         throw "Invalid path/json passed";
     }
 
-    if (jsons.length === 0) {
+    if (fileData.length === 0) {
         throw "No config found";
     }
 
     const key = "database.host";
+    const fileType = constants.FILE_TYPE_JSON;
 
-    const response = parser(merger(...jsons), key);
+    const response = parser(fileType, merger(fileType, ...fileData), key);
     console.warn(response);
 };
 
